@@ -1,7 +1,3 @@
-import 'dart:collection';
-
-import 'dart:ffi';
-
 class Color {
   int r, g, b;
   int get code => (r << 16) | (g << 8) | b;
@@ -78,7 +74,7 @@ class Column {
   String _header = '';
   get header => _header;
   void set header(h) => _header = h;
-  var _rows = List<Paragraph>();
+  var _rows = <Paragraph>[];
   get rows => _rows;
   get rowCount => _rows.length;
   operator [](int i) => _rows[i];
@@ -90,7 +86,7 @@ class Column {
 }
 
 class Document {
-  List<Column> _columns = List<Column>();
+  List<Column> _columns = <Column>[];
   get columns => _columns;
   get columnCount => _columns.length;
   operator [](int i) => _columns[i];
