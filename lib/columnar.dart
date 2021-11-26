@@ -1,34 +1,42 @@
 class Color {
-  int r, g, b;
+  late int r, g, b;
+
   int get code => (r << 16) | (g << 8) | b;
+
   Color(int code) {
     r = ((code >> 16) & 0xFF);
     g = ((code >> 8) & 0xFF);
     b = ((code) & 0xFF);
   }
+
   String toString() {
     return '0x' + code.toRadixString(16).padLeft(6, '0');
   }
 }
 
 class Paragraph {
-  String _text;
-  get text => _text;
-  String _href;
-  get href => _href;
-  String _styleClass;
-  get styleClass => _styleClass;
-  bool _emphasize;
-  get emphasize => _emphasize;
-  bool _bold;
-  get bold => _bold;
+  late String _text;
+  String get text => _text;
 
-  Paragraph(
-      {String text = '',
-      String href = null,
-      String styleClass,
-      bool emphasize = false,
-      bool bold = false}) {
+  String? _href;
+  String? get href => _href;
+
+  String? _styleClass;
+  String? get styleClass => _styleClass;
+
+  late bool _emphasize;
+  bool get emphasize => _emphasize;
+
+  late bool _bold;
+  bool get bold => _bold;
+
+  Paragraph({
+    String text = '',
+    String? href,
+    String? styleClass,
+    bool emphasize = false,
+    bool bold = false,
+  }) {
     _text = text;
     _href = href;
     _styleClass = styleClass;
@@ -72,11 +80,12 @@ class Paragraph {
 
 class Column {
   String _header = '';
-  get header => _header;
-  void set header(h) => _header = h;
-  var _rows = <Paragraph>[];
-  get rows => _rows;
-  get rowCount => _rows.length;
+  String get header => _header;
+  set header(h) => _header = h;
+
+  List<Paragraph> _rows = <Paragraph>[];
+  List<Paragraph> get rows => _rows;
+  int get rowCount => _rows.length;
   operator [](int i) => _rows[i];
 
   void append(Paragraph p) => _rows.add(p);
@@ -87,13 +96,12 @@ class Column {
 
 class Document {
   List<Column> _columns = <Column>[];
-  get columns => _columns;
-  get columnCount => _columns.length;
+  List<Column> get columns => _columns;
+  int get columnCount => _columns.length;
   operator [](int i) => _columns[i];
 
   void appendColumn() => _columns.add(Column());
-  void insertColumn(int i, [Column c = null]) =>
-      _columns.insert(i, c ?? Column());
+  void insertColumn(int i, [Column? c]) => _columns.insert(i, c ?? Column());
 
   Document();
 
